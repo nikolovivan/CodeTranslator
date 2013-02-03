@@ -13,6 +13,7 @@ well known so nobody had to get used to anything new.
 #=================================================================================================
 
 * There is a problem with the [url] tags. Some combinations do not work as expected.
+* Problem when using bold on ordered lists.
 
 #=================================================================================================
 # IMPROVEMENT PLANS (EXCLUDING BUG FIXES)
