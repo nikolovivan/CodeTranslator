@@ -14,7 +14,7 @@ namespace CodeTranslator.Tags
     public class HtmlTag : Tag
     {
         /// <summary>
-        /// The string which is used to replace the new line in Html. It gets converted to /n in BBCode
+        /// The string which is used to replace the new line in Html. It gets converted to \n in BBCode
         /// </summary>
         public string NewlineReplacer { get; private set; }
         /// <summary>
@@ -36,19 +36,20 @@ namespace CodeTranslator.Tags
         /// <param name="tagOptions">The different possible options</param>
         protected override void ValidateOptions(TagOption[] tagOptions)
         {
-            if (tagOptions.Distinct().Count() != tagOptions.Length) throw new ArgumentException("All option values must be different!");
+            if (tagOptions.Distinct().Count() != tagOptions.Length) throw new ArgumentException("All option values must be unique!");
             if (tagOptions.FirstOrDefault(o => !(o is HtmlOption)) != null) throw new ArgumentException("All option values must be of type HtmlOption!");
         }
 
         /// <summary>
-        /// Returns true if the value written in the parameter is a valid tag. The results is produced for the whole tag.
+        /// Returns true if the value written in the parameter is a valid tag. The result is produced for the whole tag.
         /// </summary>
         /// <param name="tagValue">The tag value</param>
         public override bool IsValid(string tagValue)
         {
             if (string.IsNullOrEmpty(tagValue)) throw new ArgumentNullException("tagValue");
             tagValue = tagValue.Trim('<', '>'); //trim the open and close brackets
-            string tagName = tagValue.Contains(' ') ? tagValue.Substring(0, tagValue.IndexOf(' ')) : tagValue;//get the tag name (until the first space character or the whole string.)
+            //get the tag name (until the first space character if attributes are present or the whole string.)
+            string tagName = tagValue.Contains(' ') ? tagValue.Substring(0, tagValue.IndexOf(' ')) : tagValue;
             if (OpenTag != tagName)
             {
                 if (CloseTag == tagName) return true; //the close tag is always valid

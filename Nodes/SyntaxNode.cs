@@ -13,7 +13,7 @@ namespace CodeTranslator.Nodes
         /// <summary>
         /// The string which is used to replace the newline.
         /// </summary>
-        public string NewlineRepresentation { get; set; } //the set has to be public in order to be able to use it in derived classes        
+        public string NewlineRepresentation { get; set; }
         /// <summary>
         /// The list of the children nodes.
         /// </summary>

@@ -37,7 +37,6 @@ namespace CodeTranslator.Parsers
         /// <param name="code">The bbcode</param> 
         protected override SyntaxNode ParseSyntaxNode(string code)
         {
-            //don't forget to take care for those tags where we don't want to parse the tags!!!
             if (string.IsNullOrEmpty(code)) throw new ArgumentNullException("code");
             Stack<SyntaxNode> syntaxStack = new Stack<SyntaxNode>(); //this is a stack that will hold the bbcode nodes.
             syntaxStack.Push(new BBCodeSyntaxNode(null, null)); //push the main node.

@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 namespace CodeTranslator.Attributes
 {
     /// <summary>
-    /// Represents a base class for the different attribute types.
+    /// Represents a class for an html attribute.
     /// </summary>
     public class HtmlAttribute
     {
@@ -56,11 +56,6 @@ namespace CodeTranslator.Attributes
 
         public override int GetHashCode()
         {
-            //here I use the Name only, because:
-            //if we have two pairs of options:
-            //A(x)-B and A-B, where A(x) means only the option 'x' from attribute A and just A means the whole attribute value,
-            //we won't know which of them to use. We will have to add additional options, which I don't need right now.
-            //I need to use the value here!
             return Name.GetHashCode() ^ (Value != null ? Value.GetHashCode() : -1);
         }
 
