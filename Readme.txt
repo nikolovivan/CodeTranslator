@@ -25,11 +25,11 @@ config files).
 # HISTORY (NEWEST FIRST)
 #=================================================================================================
 
-* 04/02/2012:
+* 04/02/2013:
  - Fixed a bug with the url tags.
  - Improved some commenting and the code in general.
 
-* 03/02/2012:
+* 03/02/2013:
  - Decided to joing GitHub and put the project there.
  - Added a readme file.
  - Planned future fixes and improvements.
