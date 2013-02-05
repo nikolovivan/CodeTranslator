@@ -44,18 +44,5 @@ namespace CodeTranslator.Options
             //the different attributes are with the same weights. This will prevent (A B != B A), because we don't want that!
             return (ContentHtmlAttribute == null ? -1 : ContentHtmlAttribute.GetHashCode()) ^ (OptionHtmlAttribute == null ? -1 : OptionHtmlAttribute.GetHashCode());
         }
-
-        ///// <summary>
-        ///// Tries to validate the attributes list.
-        ///// </summary>         
-        //private bool IsAttributesValid(HtmlAttribute contentHtmlAttribute, HtmlAttribute optionHtmlAttribute)
-        //{
-        //    if (contentHtmlAttribute == null && optionHtmlAttribute == null) return true; //there are bbcode tags where we don't get anything from html attributes.
-        //    if (contentHtmlAttribute != null && optionHtmlAttribute == null) return true; //only one attribute is set
-        //    if (contentHtmlAttribute == null && optionHtmlAttribute != null) return true; //the other one attribute is set
-        //    //both attributes are set.
-        //    if (contentHtmlAttribute.Name != optionHtmlAttribute.Name) return true; //content and option are taken from different html attributes.
-        //    //both values are taken from the same attribute.
-        //}
     }
 }

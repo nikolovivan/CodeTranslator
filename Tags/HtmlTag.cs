@@ -104,11 +104,11 @@ namespace CodeTranslator.Tags
             }
             //now we have only valid options, according to the tag representation.
             //Here are the priorities:
-            //1. Both attributes - full
-            //2. Both attributes - one of them full
-            //3. Both attributes
-            //4. One attribute - full
-            //5. One attribute
+            //1. Both attributes and both of them include the full attribute value
+            //2. Both attributes and one of them includes the full attribute value
+            //3. Both attributes and both include part of the attribute value
+            //4. One attribute and includes the full attribute value
+            //5. One attribute and includes a part of the attribute value.
             //In some cases this can make a problem if we have more attributes, but in the case I will use this library,
             //it will work fine. This is also up to settings, which sometimes can be pretty stupid if such a thing happens.
             HtmlOption[] priorityList = new HtmlOption[4]; //four elements. The lowest index is the highest priority. This is done to avoid multiple searching through the whole collection, when many options.

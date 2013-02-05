@@ -72,18 +72,17 @@ namespace CodeTranslator.Tags
             }
             TagOption ov = string.IsNullOrEmpty(option) ? Options.FirstOrDefault(o => !(o as BBCodeOption).IsNeedOption) : GetOptionValuesForOption(option);
             if (ov == null) throw new ArgumentException("There was no " + (string.IsNullOrEmpty(option) ? "universal definition" : "definition option '" + option + "'") + " for the tag '" + OpenTag + "'.");
-            string result = ((ov as BBCodeOption).IsNotInParagraph ? Constants.Constants.CloseHtmlParagraph : "") + ov.OpenTag; //initialize
-            bool isContentSet = false;
+            string result = ((ov as BBCodeOption).IsInParagraph ? "" : Constants.Constants.CloseHtmlParagraph) + ov.OpenTag; //initialize
+            //content will be set in both the open tag (if any) and the content
             if (ov.OpenTag.Contains(ContentPlaceholder))
             {
                 result = result.Replace(ContentPlaceholder, content);
-                isContentSet = true;
             }
             if (ov.OpenTag.Contains(OptionPlaceholder))
             {
                 result = result.Replace(OptionPlaceholder, option);
             }
-            return result + (isContentSet ? "" : content) + ov.CloseTag + ((ov as BBCodeOption).IsNotInParagraph ? Constants.Constants.OpenHtmlParagraph : "");
+            return result + content + (string.IsNullOrEmpty(ov.CloseTag) ? "" : ov.CloseTag) + ((ov as BBCodeOption).IsInParagraph ? "" : Constants.Constants.OpenHtmlParagraph);
         }
 
         /// <summary>

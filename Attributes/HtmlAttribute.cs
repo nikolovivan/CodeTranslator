@@ -21,7 +21,7 @@ namespace CodeTranslator.Attributes
         /// </summary>
         public AttributeOption Value { get; private set; }
         /// <summary>
-        /// Tells if the current attribute has a value (part which we use.)
+        /// Tells if the current attribute has a value. If true - we use a part of the attribute. Otherwise we use the whole attribute value.
         /// </summary>
         public bool HasValue { get { return Value != null; } }
 

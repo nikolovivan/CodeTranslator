@@ -16,6 +16,8 @@ namespace CodeTranslator.Options
         /// 1. Null - no option
         /// 2. Empty string - all possibilities of the option
         /// 3. Specific value.
+        /// Example: [list=1], should be converted to ol. => value = 1.
+        /// Url can be [url] and [url=http://...] => two options with value = null and value = ""
         /// </summary>
         public string Value { get; private set; }
         /// <summary>
@@ -23,9 +25,9 @@ namespace CodeTranslator.Options
         /// </summary>
         public string NewlineReplacer { get; private set; }
         /// <summary>
-        /// Shows if the option generates an Html tag, that must not be in a paragraph.
+        /// Shows if the option generates an Html tag, that must be in a paragraph.
         /// </summary>
-        public bool IsNotInParagraph { get; private set; }
+        public bool IsInParagraph { get; private set; }
         /// <summary>
         /// Should the content be parsed.
         /// </summary>
@@ -51,7 +53,7 @@ namespace CodeTranslator.Options
         /// <param name="closeHtmlTag">The close html tag (with &lt;/...&gt;)</param>
         /// <param name="newlineReplacer">The string which is used to replace the new lines.</param>
         /// <param name="isParseContent">Should the content be parsed.</param>
-        public BBCodeOption(string value, string openHtmlTag, string closeHtmlTag, string newlineReplacer, bool isParseContent) : this(value, openHtmlTag, closeHtmlTag, newlineReplacer, isParseContent, false) { }
+        public BBCodeOption(string value, string openHtmlTag, string closeHtmlTag, string newlineReplacer, bool isParseContent) : this(value, openHtmlTag, closeHtmlTag, newlineReplacer, isParseContent, true) { }
 
         /// <summary>
         /// Creates a description object for the required html for a specific option value.
@@ -61,14 +63,14 @@ namespace CodeTranslator.Options
         /// <param name="closeHtmlTag">The close html tag (with &lt;/...&gt;)</param>
         /// <param name="newlineReplacer">The string which is used to replace the new lines.</param>
         /// <param name="isParseContent">Should the content be parsed.</param>
-        /// <param name="isNotInParagraph">Shows if the option generates an Html tag, that must not be in a paragraph.</param>        
-        public BBCodeOption(string value, string openHtmlTag, string closeHtmlTag, string newlineReplacer, bool isParseContent, bool isNotInParagraph)
+        /// <param name="isInParagraph">Shows if the option generates an Html tag, that must be in a paragraph.</param>        
+        public BBCodeOption(string value, string openHtmlTag, string closeHtmlTag, string newlineReplacer, bool isParseContent, bool isInParagraph)
             : base(openHtmlTag, closeHtmlTag)
         {
             Value = value;
             NewlineReplacer = string.IsNullOrEmpty(newlineReplacer) ? "\n" : newlineReplacer; //use the \n in order to make things work correctly.
             IsParseContent = isParseContent;
-            IsNotInParagraph = isNotInParagraph;
+            IsInParagraph = isInParagraph;
         }
 
         public override bool Equals(object obj)

@@ -12,7 +12,6 @@ well known so nobody had to get used to anything new.
 # KNOWN BUGS
 #=================================================================================================
 
-* There is a problem with the [url] tags. Some combinations do not work as expected.
 * Problem when using bold on ordered lists.
 
 #=================================================================================================
@@ -25,6 +24,10 @@ config files).
 #=================================================================================================
 # HISTORY (NEWEST FIRST)
 #=================================================================================================
+
+* 04/02/2012:
+ - Fixed a bug with the url tags.
+ - Improved some commenting and the code in general.
 
 * 03/02/2012:
  - Decided to joing GitHub and put the project there.

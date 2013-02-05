@@ -20,7 +20,7 @@ namespace CodeTranslator.Tags
         /// </summary>
         public string CloseTag { get; private set; }
         /// <summary>
-        /// The options for the current tag.
+        /// The options for the current tag. They help for converting from one representation to another.
         /// </summary>
         public TagOption[] Options { get; private set; }
 
@@ -53,6 +53,6 @@ namespace CodeTranslator.Tags
         /// <summary>
         /// Returns the opposite representation - HTML for BBCode and vice versa.
         /// </summary>
-        public abstract string ToOppositeRepresentation();
+        //public abstract string ToOppositeRepresentation();
     }
 }

@@ -44,7 +44,7 @@ namespace CodeTranslator
                 new BBTag("u", "/u", new BBCodeOption(null, "<u>", "</u>", "<br />", true)),
                 new BBTag("size", "/size", new BBCodeOption("", "<span style=\"font-size:" + BBTag.OptionPlaceholder + "%;\">", "</span>", "<br />", true)),
                 new BBTag("color", "/color", new BBCodeOption("", "<span style=\"color:" + BBTag.OptionPlaceholder + ";\">", "</span>", "<br />", true)),
-                new BBTag("list", "/list", new BBCodeOption("1", "<ol>", "</ol>", "", true, true), new BBCodeOption(null, "<ul>", "</ul>", "", true, true)),
+                new BBTag("list", "/list", new BBCodeOption("1", "<ol>", "</ol>", "", true, false), new BBCodeOption(null, "<ul>", "</ul>", "", true, false)),
                 new BBTag("*", "", new BBCodeOption(null, "<li>", "</li>", "", true)),
                 //changed the new line replacer to work correctly with the code viewer... It was <br />, but the code viewer escapes it and ruins everything. Now is OK.
                 //see what to do with block type tags... Like the pre here...
@@ -73,7 +73,7 @@ namespace CodeTranslator
                 new HtmlTag("li", "/li", "", new HtmlOption("*","", null, null)),
                 new HtmlTag("pre", "/pre", "<br />", new HtmlOption("code","/code", null, new HtmlAttribute("class"))),//here is okay, because it looks for explicit <br />, which we don't have (escaped). \n are just flushed.
                 new HtmlTag("img", "/img", "", new HtmlOption("img","/img", new HtmlAttribute("src"), null)),
-                new HtmlTag("a", "/a", "", new HtmlOption("url","/url", new HtmlAttribute("href"), new HtmlAttribute("href")))//don't have description for mail, because it's the same and the ckeditor will fix it...
+                new HtmlTag("a", "/a", "", new HtmlOption("url","/url", null, new HtmlAttribute("href")))//don't have description for mail, because it's the same and the ckeditor will fix it...
             );
         }
 
