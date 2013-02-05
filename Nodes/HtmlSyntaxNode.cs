@@ -14,10 +14,6 @@ namespace CodeTranslator.Nodes
     public class HtmlSyntaxNode : SyntaxNode
     {
         /// <summary>
-        /// The html tag represented by the node.
-        /// </summary>
-        public HtmlTag Tag { get; private set; }
-        /// <summary>
         /// The tag option which is used to convert the tag. It is based on the representation.
         /// </summary>
         public HtmlOption TagOption { get; private set; }
@@ -66,7 +62,7 @@ namespace CodeTranslator.Nodes
                 return String.Concat((from c in Children
                                       select c.ToBBCode(isDecodeOutput)));//concatenate ToHtml of all children
             }
-            return Tag.ToBBCodeString(Option, String.Concat((from c in Children
+            return (Tag as HtmlTag).ToBBCodeString(Option, String.Concat((from c in Children
                                                            select c.ToBBCode(isDecodeOutput))), TagOption); 
         }
 

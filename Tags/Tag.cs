@@ -50,9 +50,17 @@ namespace CodeTranslator.Tags
         /// </summary>
         /// <param name="tagValue">The tag value</param>
         public abstract bool IsValid(string tagValue);
-        /// <summary>
-        /// Returns the opposite representation - HTML for BBCode and vice versa.
-        /// </summary>
-        //public abstract string ToOppositeRepresentation();
+
+        public override bool Equals(object obj)
+        {
+            Tag tag = obj as Tag;
+            if (tag == null) return false;
+            return tag.OpenTag == this.OpenTag && tag.CloseTag == this.CloseTag;
+        }
+
+        public override int GetHashCode()
+        {
+            return (string.IsNullOrEmpty(this.OpenTag) ? -1 : this.OpenTag.GetHashCode()) ^ (string.IsNullOrEmpty(this.CloseTag) ? -1 : this.CloseTag.GetHashCode());
+        }
     }
 }

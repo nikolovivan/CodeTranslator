@@ -13,10 +13,6 @@ namespace CodeTranslator.Nodes
     public class BBCodeSyntaxNode : SyntaxNode
     {
         /// <summary>
-        /// The tag of the syntax node.
-        /// </summary>
-        public BBTag Tag { get; private set; }
-        /// <summary>
         /// If the content should be parsed.
         /// </summary>
         public bool IsParseContent { get; private set; }
@@ -51,7 +47,7 @@ namespace CodeTranslator.Nodes
                 return String.Concat((from c in Children
                                       select c.ToHtml()));//concatenate ToHtml of all children
             }
-            return Tag.ToHtmlString(Option, String.Concat((from c in Children
+            return (Tag as BBTag).ToHtmlString(Option, String.Concat((from c in Children
                                                            select c.ToHtml()))); 
         }
 
@@ -110,7 +106,7 @@ namespace CodeTranslator.Nodes
         /// <returns></returns>
         public bool IsSelfCloserNode()
         {
-            return Tag == null ? false : !Tag.IsBBCodeNeedClosingTag;
+            return Tag == null ? false : !(Tag as BBTag).IsBBCodeNeedClosingTag;
         }
     }
 }

@@ -51,23 +51,34 @@ namespace CodeTranslator.Parsers
                 if (nextNode is TextSyntaxNode) //the text is always added as a child.
                 {
                     lastNode.AddChild(nextNode);
-                    if (lastNode.IsSelfCloserNode()) //tags like [*] need just text and close themselves. Sometimes they can be empty, but they still have '\n\r'
-                    {
-                        lastNode = syntaxStack.Pop() as BBCodeSyntaxNode; //pop it out.
-                        syntaxStack.Peek().AddChild(lastNode); //add it as a child to the one before it
-                    }
                 }
                 else
                 {
                     if (tagType == TagType.Close) //if it's closing tag
                     {
                         //this blows when we have tags with the same endings or beginnings...
-                        if (lastNode.Tag != (nextNode as BBCodeSyntaxNode).Tag) throw new BBCodeParsingException("Invalid formatting!");
+                        bool isLastSelfCloser = false;
+                        do
+                        {
+                            if (!lastNode.hasSameTags(nextNode) && !lastNode.IsSelfCloserNode()) throw new BBCodeParsingException("Invalid formatting!");
+                            isLastSelfCloser = lastNode.IsSelfCloserNode();
+                            if (isLastSelfCloser)
+                            {
+                                lastNode = syntaxStack.Pop() as BBCodeSyntaxNode; //pop it out.
+                                syntaxStack.Peek().AddChild(lastNode); //add it as a child to the one before it
+                                lastNode = syntaxStack.Peek() as BBCodeSyntaxNode;
+                            }
+                        } while (isLastSelfCloser);
                         lastNode = syntaxStack.Pop() as BBCodeSyntaxNode; //pop it out.
                         syntaxStack.Peek().AddChild(lastNode);//add it as a child to the one before it.
                     }
                     else//opening tag
                     {
+                        if (lastNode.IsSelfCloserNode() && lastNode.hasSameTags(nextNode))
+                        {
+                            lastNode = syntaxStack.Pop() as BBCodeSyntaxNode; //pop it out.
+                            syntaxStack.Peek().AddChild(lastNode); //add it as a child to the one before it
+                        }
                         syntaxStack.Push(nextNode); //push it to the stack
                     }
                 }

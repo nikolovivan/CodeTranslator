@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CodeTranslator.Tags;
 
 namespace CodeTranslator.Nodes
 {
@@ -10,6 +11,10 @@ namespace CodeTranslator.Nodes
     /// </summary>
     public abstract class SyntaxNode
     {
+        /// <summary>
+        /// The html tag represented by the node.
+        /// </summary>
+        public Tag Tag { get; protected set; }
         /// <summary>
         /// The string which is used to replace the newline.
         /// </summary>
@@ -57,6 +62,12 @@ namespace CodeTranslator.Nodes
         /// Adds a child to the children collection
         /// </summary>
         /// <param name="child">The child</param>
-        public abstract void AddChild(SyntaxNode child); 
+        public abstract void AddChild(SyntaxNode child);
+
+        public bool hasSameTags(SyntaxNode other)
+        {
+            if (other == null) return false;
+            return this.Tag.Equals(other.Tag);
+        }
     }
 }
