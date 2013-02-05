@@ -12,7 +12,7 @@ well known so nobody had to get used to anything new.
 # KNOWN BUGS
 #=================================================================================================
 
-* Problem when using bold on ordered lists.
+* Yay - nothing here.
 
 #=================================================================================================
 # IMPROVEMENT PLANS (EXCLUDING BUG FIXES)
@@ -20,10 +20,14 @@ well known so nobody had to get used to anything new.
 
 * Reconsider the customization mechanism and implement a better way of configuring (probably using
 config files).
+* Optimize the code.
 
 #=================================================================================================
 # HISTORY (NEWEST FIRST)
 #=================================================================================================
+
+* 05/02/2013
+ - Fixed a bug with the ordered and unordered lists.
 
 * 04/02/2013:
  - Fixed a bug with the url tags.
