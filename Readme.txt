@@ -26,6 +26,9 @@ config files).
 # HISTORY (NEWEST FIRST)
 #=================================================================================================
 
+* 16/02/2013
+ - Refactored the code a little.
+
 * 05/02/2013
  - Fixed a bug with the ordered and unordered lists.
 
