@@ -101,9 +101,9 @@ namespace CodeTranslator.Parsers
             string currentSubstring = code.Substring(startIndex);
             string regexPattern = previousTag == null || isParseContent ? @"\[/?[a-z*][a-z0-9]*(=[^\[\]\n\r\v\f]+)?\]" : @"\[" + previousTag.CloseTag + @"\]"; //the close tag has /
             Match tag = Regex.Match(currentSubstring, regexPattern);
-            BBTag registeredTag = null;
+            Tag registeredTag = null;
             tagType = TagType.Open; //we just set it here and when needed will do it later
-            while (tag.Success && (registeredTag = (GetTagByValue(tag.Value) as BBTag)) == null)//getting tags, but they are not registered.
+            while (tag.Success && (registeredTag = GetTagByValue(tag.Value)) == null)//getting tags, but they are not registered.
             {
                 tag = tag.NextMatch();
             }
@@ -116,7 +116,7 @@ namespace CodeTranslator.Parsers
             {
                 if (tag.Value.StartsWith("[/")) tagType = TagType.Close;                
                 startIndex += tag.Value.Length;
-                return new BBCodeSyntaxNode(registeredTag, tag.Value);
+                return new BBCodeSyntaxNode(registeredTag as BBTag, tag.Value);
             }
             //there has been some text before the tag that I found...
             startIndex += tag.Index; //move the start index for the other iterations

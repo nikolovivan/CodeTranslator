@@ -30,22 +30,22 @@ namespace CodeTranslator.Nodes
         /// <summary>
         /// Creates an empty syntax node
         /// </summary>
-        /// <param name="newlineRepresentation">The string to replace the newline</param>
-        protected SyntaxNode(string newlineRepresentation)
-        {
-            Children = new List<SyntaxNode>();
-            NewlineRepresentation = newlineRepresentation;
-        }
+        /// <param name="tag">The tag used...</param>
+        /// <param name="tagRepresentation">The representation of the tag.</param>
+        protected SyntaxNode(Tag tag, string tagRepresentation) : this(tag, tagRepresentation, new List<SyntaxNode>()) { }
         /// <summary>
         /// Creates a syntax node with children
-        /// </summary>       
-        /// <param name="newlineRepresentation">The string to replace the newline</param>  
+        /// </summary>      
+        /// <param name="tag">The tag used...</param>
+        /// <param name="tagRepresentation">The representation of the tag.</param>  
         /// <param name="children">The children</param>
-        protected SyntaxNode(string newlineRepresentation, List<SyntaxNode> children)
+        protected SyntaxNode(Tag tag, string tagRepresentation, List<SyntaxNode> children)
         {
             if (children == null) throw new ArgumentNullException("children");
+            this.Tag = tag;
             Children = children;
-            NewlineRepresentation = newlineRepresentation;
+            NewlineRepresentation = tag == null ? null : tag.GetNewlineRepresentation(tagRepresentation);
+            Initialize(tagRepresentation);
         }
         /// <summary>
         /// Converts the node to Html
@@ -63,6 +63,15 @@ namespace CodeTranslator.Nodes
         /// </summary>
         /// <param name="child">The child</param>
         public abstract void AddChild(SyntaxNode child);
+        /// <summary>
+        /// Returns the tag option from its string representation
+        /// </summary>
+        protected abstract void GetTagOptionFromRepresentation(Tag tag, string representation);
+        /// <summary>
+        /// Initializes the syntax node
+        /// </summary>
+        /// <param name="tagRepresentation">The representation in the text</param>
+        protected abstract void Initialize(string tagRepresentation);
 
         public bool hasSameTags(SyntaxNode other)
         {

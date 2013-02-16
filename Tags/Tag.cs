@@ -50,6 +50,11 @@ namespace CodeTranslator.Tags
         /// </summary>
         /// <param name="tagValue">The tag value</param>
         public abstract bool IsValid(string tagValue);
+        /// <summary>
+        /// Returns the correct newline representation for the tag.
+        /// </summary>
+        /// <param name="tagValue">The tag value used to determine the newline representation.</param>
+        public abstract string GetNewlineRepresentation(string tagValue);
 
         public override bool Equals(object obj)
         {

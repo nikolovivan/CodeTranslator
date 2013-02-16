@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using CodeTranslator.Tags;
 
 namespace CodeTranslator.Nodes
 {
@@ -20,7 +21,7 @@ namespace CodeTranslator.Nodes
         /// </summary>
         /// <param name="text">The text of the text syntax node.</param>
         public TextSyntaxNode(string text)
-            : base(null)
+            : base(null, text)
         {
             if (string.IsNullOrEmpty(text)) throw new ArgumentNullException("text");
             Text = text;
@@ -53,6 +54,16 @@ namespace CodeTranslator.Nodes
         public override void AddChild(SyntaxNode child)
         {
             throw new NotSupportedException("You can't add children to a text syntax node!"); //the text syntax node doesn't have children
+        }
+
+        protected override void GetTagOptionFromRepresentation(Tag tag, string representation)
+        {
+            throw new NotSupportedException("You can't call this method from a text syntax node.");
+        }
+
+        protected override void Initialize(string tagRepresentation)
+        {
+            //nothing to do here
         }
     }
 }

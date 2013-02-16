@@ -97,11 +97,10 @@ namespace CodeTranslator.Tags
         }
 
         /// <summary>
-        /// Returns the correct newline replacer by the given tag value. If it's a closing tag, 
-        /// we can't say anything.
+        /// Returns the correct newline representation for the tag.
         /// </summary>
-        /// <param name="tagValue">The value of the tag</param>        
-        public string GetNewlineRepresentationByTagValue(string tagValue)
+        /// <param name="tagValue">The tag value used to determine the newline representation.</param>
+        public override string GetNewlineRepresentation(string tagValue)
         {
             string value = GetAndValidateTagOptionValue(tagValue);
             if (value == null && tagValue.StartsWith("[/")) return null; //if it's a closing tag, we can't say anything.            

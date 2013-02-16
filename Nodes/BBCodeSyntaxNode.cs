@@ -21,22 +21,14 @@ namespace CodeTranslator.Nodes
         /// </summary>
         /// <param name="tag">The tag that the node represents. If the tag is null - this is the main node.</param>
         /// <param name="tagRepresentation">The way that the tag is represented ([size] can be represented [size=100])</param>
-        public BBCodeSyntaxNode(BBTag tag, string tagRepresentation)
-            : base(tag == null ? null : tag.GetNewlineRepresentationByTagValue(tagRepresentation))
-        {            
-            Initialize(tag, tagRepresentation);
-        }
+        public BBCodeSyntaxNode(BBTag tag, string tagRepresentation) : base(tag, tagRepresentation) { }
         /// <summary>
         /// Creates a bbcode syntax node with children
         /// </summary>
         /// <param name="tag">The tag that the node represents.</param>
         /// <param name="tagRepresentation">The way that the tag is represented ([size] can be represented [size=100])</param>
         /// <param name="children">The children</param>        
-        public BBCodeSyntaxNode(BBTag tag, string tagRepresentation, List<SyntaxNode> children)
-            : base(tag == null ? null : tag.GetNewlineRepresentationByTagValue(tagRepresentation), children)
-        {
-            Initialize(tag, tagRepresentation);
-        }
+        public BBCodeSyntaxNode(BBTag tag, string tagRepresentation, List<SyntaxNode> children) : base(tag, tagRepresentation, children) { }
         /// <summary>
         /// Converts the syntax node to Html
         /// </summary>
@@ -75,9 +67,9 @@ namespace CodeTranslator.Nodes
         /// </summary>
         /// <param name="tag">The defined bbtag</param>
         /// <param name="representation">The way it was represented in the text (with [])</param>
-        private void GetTagOptionFromRepresentation(BBTag tag, string representation)
+        protected override void GetTagOptionFromRepresentation(Tag tag, string representation)
         {
-            Option = tag.GetOptionValue(representation);
+            Option = (tag as BBTag).GetOptionValue(representation);
         }
 
         /// <summary>
@@ -85,18 +77,17 @@ namespace CodeTranslator.Nodes
         /// </summary>
         /// <param name="tag">The bbtag</param>
         /// <param name="tagRepresentation">The representation in the text</param>
-        private void Initialize(BBTag tag, string tagRepresentation)
+        protected override void Initialize(string tagRepresentation)
         {
-            if (tag != null && string.IsNullOrEmpty(tagRepresentation)) //if the tag is not null, we need a representation. This is to make sure I can create only root nodes like this
+            if (Tag != null && string.IsNullOrEmpty(tagRepresentation)) //if the tag is not null, we need a representation. This is to make sure I can create only root nodes like this
             {
                 throw new ArgumentNullException("tagRepresentation");
             }
-            Tag = tag;
             IsParseContent = true; //set the default value. If the tag is not null, it will take it again.
-            if (tag != null)
+            if (Tag != null)
             {
-                GetTagOptionFromRepresentation(tag, tagRepresentation);
-                IsParseContent = tag.IsParseContent(tagRepresentation);
+                GetTagOptionFromRepresentation(Tag, tagRepresentation);
+                IsParseContent = (Tag as BBTag).IsParseContent(tagRepresentation);
             }
         }
 

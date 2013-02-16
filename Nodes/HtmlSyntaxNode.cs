@@ -22,11 +22,7 @@ namespace CodeTranslator.Nodes
         /// </summary>
         /// <param name="tag">The tag that the node represents. If the tag is null - this is the main node.</param>
         /// <param name="tagRepresentation">The way that the tag is represented (&lt;a&gt; can be represented &lt;a href="..."&gt;)</param>
-        public HtmlSyntaxNode(HtmlTag tag, string tagRepresentation)
-            : base(tag != null ? tag.NewlineReplacer : null)
-        {
-            Initialize(tag, tagRepresentation);
-        }
+        public HtmlSyntaxNode(HtmlTag tag, string tagRepresentation) : base(tag, tagRepresentation) { }
 
         /// <summary>
         /// Creates an html syntax node with children
@@ -34,11 +30,7 @@ namespace CodeTranslator.Nodes
         /// <param name="tag">The tag that the node represents.</param>
         /// <param name="tagRepresentation">The way that the tag is represented (&lt;a&gt; can be represented &lt;a href="..."&gt;)</param>
         /// <param name="children">The children</param>        
-        public HtmlSyntaxNode(HtmlTag tag, string tagRepresentation, List<SyntaxNode> children)
-            : base(tag != null ? tag.NewlineReplacer : null, children)
-        {
-            Initialize(tag, tagRepresentation);
-        }
+        public HtmlSyntaxNode(HtmlTag tag, string tagRepresentation, List<SyntaxNode> children) : base(tag, tagRepresentation, children) { }
 
         /// <summary>
         /// Can't convert to Html, because it is in html...
@@ -88,18 +80,16 @@ namespace CodeTranslator.Nodes
         /// <summary>
         /// Initializes the html syntax node
         /// </summary>
-        /// <param name="tag">The html tag</param>
         /// <param name="tagRepresentation">The representation in the text</param>
-        private void Initialize(HtmlTag tag, string tagRepresentation)
+        protected override void Initialize(string tagRepresentation)
         {
-            if (tag != null && string.IsNullOrEmpty(tagRepresentation)) //if the tag is not null, we need a representation. This is to make sure I can create only root nodes like this
+            if (Tag != null && string.IsNullOrEmpty(tagRepresentation)) //if the tag is not null, we need a representation. This is to make sure I can create only root nodes like this
             {
                 throw new ArgumentNullException("tagRepresentation");
-            }
-            Tag = tag;    
-            if (tag != null)
+            }                
+            if (Tag != null)
             {
-                GetTagOptionFromRepresentation(tag, tagRepresentation);
+                GetTagOptionFromRepresentation(Tag, tagRepresentation);
             }
         }
 
@@ -109,9 +99,9 @@ namespace CodeTranslator.Nodes
         /// </summary>
         /// <param name="tag">The tag.</param>
         /// <param name="tagRepresentation">The representation of the tag.</param>
-        private void GetTagOptionFromRepresentation(HtmlTag tag, string tagRepresentation)
+        protected override void GetTagOptionFromRepresentation(Tag tag, string tagRepresentation)
         {
-            TagOption = tag.GetOptionFromRepresentation(tagRepresentation); //get the option that best describes the tag
+            TagOption = (tag as HtmlTag).GetOptionFromRepresentation(tagRepresentation); //get the option that best describes the tag
             if (TagOption == null) return; //this is when it's a closing tag...
             if (TagOption.OptionHtmlAttribute != null)
             {

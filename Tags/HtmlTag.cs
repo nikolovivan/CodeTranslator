@@ -79,6 +79,16 @@ namespace CodeTranslator.Tags
         }
 
         /// <summary>
+        /// Returns the correct newline representation for the tag. In HTML tag it is
+        /// the one that is set and the tagValue parameter is not used.
+        /// </summary>
+        /// <param name="tagValue">The tag value used to determine the newline representation.</param>
+        public override string GetNewlineRepresentation(string tagValue)
+        {
+            return NewlineReplacer;
+        }
+
+        /// <summary>
         /// Returns the most suitable HtmlOption, based on the tag representation
         /// </summary>
         /// <param name="tagRepresentation">The tag representation.</param>
