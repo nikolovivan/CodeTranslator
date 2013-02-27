@@ -26,6 +26,9 @@ config files).
 # HISTORY (NEWEST FIRST)
 #=================================================================================================
 
+* 27/02/2013
+ - Found a bug with images and self-closing HTML tags and fixed it.
+
 * 16/02/2013
  - Refactored the code a little.
 

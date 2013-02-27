@@ -82,7 +82,7 @@ namespace CodeTranslator.Tags
             {
                 result = result.Replace(OptionPlaceholder, option);
             }
-            return result + content + (string.IsNullOrEmpty(ov.CloseTag) ? "" : ov.CloseTag) + ((ov as BBCodeOption).IsInParagraph ? "" : Constants.Constants.OpenHtmlParagraph);
+            return result + (string.IsNullOrEmpty(ov.CloseTag) ? "" : content + ov.CloseTag) + ((ov as BBCodeOption).IsInParagraph ? "" : Constants.Constants.OpenHtmlParagraph);
         }
 
         /// <summary>
